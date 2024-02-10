@@ -1,0 +1,1 @@
+D:\Projetos GitHub\C#\desktop\ConvertFile\ConvertFile.csproj;x64

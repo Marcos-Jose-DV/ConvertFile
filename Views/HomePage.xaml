@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ConvertFile.Views.HomePage"
+             Title="HomePage">
+    <VerticalStackLayout>
+        <Label Text="FileSaver allows selecting target folder and saving files to the file system"
+         LineBreakMode = "WordWrap"
+         HorizontalOptions="Center"
+         HorizontalTextAlignment="Center"/>
+
+        <Button Command="{Binding SaveFileCommand}"
+          Text="Save using FileSaver from DI Container"
+          HorizontalOptions="Center"/>
+
+
+        <Button Command="{Binding SaveFileStaticCommand}"
+          Text="Save using static FileSaver"
+          HorizontalOptions="Center"/>
+
+
+        <Button Command="{Binding SaveFileInstanceCommand}"
+          Text="Save using new instance of FileSaver"
+          HorizontalOptions="Center"/>
+    </VerticalStackLayout>
+</ContentPage>
