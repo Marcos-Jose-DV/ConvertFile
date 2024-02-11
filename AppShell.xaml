@@ -4,13 +4,51 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ConvertFile"
-    Shell.FlyoutBehavior="Disabled"
+    Shell.FlyoutBehavior="{OnPlatform Flyout, WinUI=Locked  }"
     xmlns:views="clr-namespace:ConvertFile.Views"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
     Title="ConvertFile">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate views:HomePage}"
-        Route="HomePage" />
+    <Shell.FlyoutHeader>
+        <Label Margin="{OnPlatform Default='0,0,0,12',
+                               iOS='0',
+                               MacCatalyst='0'}"
+           Padding="{OnPlatform Default='4,0',
+                                iOS='4, 100, 4, 0',
+                                MacCatalyst='4, 100, 4, 0'}"
+           FontSize="24"
+           HorizontalTextAlignment="Start"
+           Text="ConvertFile"
+           VerticalTextAlignment="Center" />
+
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="PDF"
+            Route="WelcomePage"
+            Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
+        <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Word"
+         Route="WelcomePage"
+         Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
+        <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="PNG"
+         Route="WelcomePage"
+         Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
+        <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Welcome"
+         Route="WelcomePage"
+         Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
+        <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <Label Padding="4"
+           HorizontalOptions="End"
+           Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:dd-MM-yyyy}'}"
+           VerticalOptions="End" />
+    </Shell.FlyoutFooter>
 
 </Shell>

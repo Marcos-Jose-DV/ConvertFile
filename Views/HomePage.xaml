@@ -2,25 +2,222 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConvertFile.Views.HomePage"
-             Title="HomePage">
-    <VerticalStackLayout>
-        <Label Text="FileSaver allows selecting target folder and saving files to the file system"
-         LineBreakMode = "WordWrap"
-         HorizontalOptions="Center"
-         HorizontalTextAlignment="Center"/>
+             BackgroundColor="#fff"
+             Shell.NavBarIsVisible="False">
+    <Grid>
+        <Image IsVisible="{OnPlatform WinUI=False,Default=True}" 
+               Source="bar.jpg" 
+               Aspect="AspectFill"/>
+        <ScrollView>
+            <VerticalStackLayout Spacing="20">
+                <Border VerticalOptions="StartAndExpand"
+                        BackgroundColor="Transparent" 
+                        StrokeThickness="0"    
+                        HeightRequest="200"
+                        IsVisible="{Binding IsVisibleHeader}">
+                    <Grid ColumnDefinitions="*,*,*" >
+                        <Image Grid.ColumnSpan="3" 
+                               Source="bar.jpg"  
+                               Aspect="AspectFill"
+                               IsVisible="{OnPlatform Default=True,Android=False,iOS=False}"/>
+                        <Button Grid.ColumnSpan="3"
+                                Margin="20,0"
+                                Text="Seleciona arquivo 📂"
+                                FontSize="14"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                BackgroundColor="White"
+                                HorizontalOptions="Center"
+                                HeightRequest="65"
+                                WidthRequest="200"
+                                Command="{Binding SelectFileCommand}"/>
+                    </Grid>
+                </Border>
 
-        <Button Command="{Binding SaveFileCommand}"
-          Text="Save using FileSaver from DI Container"
-          HorizontalOptions="Center"/>
+                <Border VerticalOptions="EndAndExpand"
+          Margin="20,0" 
+          BackgroundColor="Transparent" 
+          StrokeThickness="0" 
+          HeightRequest="{OnPlatform Default=70, Android=300,iOS=300}"
+          IsVisible="{Binding IsVisibleFooter}">
+                    <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" RowSpacing="10">
+                        <Image Source="bar.jpg" 
+                 Grid.ColumnSpan="3" 
+                 Grid.RowSpan="3" 
+                 Aspect="AspectFill"
+                 IsVisible="{OnPlatform Default=True,Android=False,iOS=False}"/>
+                        <Button Grid.Column="0"
+                  Grid.Row="0"
+                  Grid.ColumnSpan="{OnPlatform Default=0,Android=3,iOS=3}"
+                  Grid.RowSpan="{OnPlatform WinUI=3}"
+                  Margin="20,0"
+                  Text="{Binding FileTotal,StringFormat='Total de arquivos: {0}'}"
+                  FontSize="14"
+                  TextColor="Black"
+                  FontAttributes="Bold"
+                  BackgroundColor="White"
+                  HorizontalOptions="{OnPlatform Default=StartAndExpand,Android=Center,iOS=Center}"
+                  HeightRequest="36"
+                  Command="{Binding SelectFileCommand}"/>
 
 
-        <Button Command="{Binding SaveFileStaticCommand}"
-          Text="Save using static FileSaver"
-          HorizontalOptions="Center"/>
+                        <Button Grid.Column="{OnPlatform Default=2,Android=0,iOS=0}" 
+                                  Grid.Row="{OnPlatform Default=0,Android=2,iOS=2}"
+                                  Grid.ColumnSpan="{OnPlatform Default=0,Android=3,iOS=3}"
+                                  Grid.RowSpan="{OnPlatform WinUI=3}"
+                                  HorizontalOptions="{OnPlatform Default=EndAndExpand,Android=Center,iOS=Center}"
+                                  Command="{Binding ConvertFileCommand}"
+                                  WidthRequest="{OnPlatform Default=200}"
+                                  HeightRequest="{OnPlatform Default=200,Android=100,iOS=100}"
+                                  Text="{Binding FileSize}"
+                                  FontSize="19"
+                                  FontAttributes="Bold"/>
+                    </Grid>
+                </Border>
 
+                <!--<Button Command="{Binding SaveFileCommand}"
+                        Text="Baixar"
+                        HorizontalOptions="Center"
+                        Clicked="Button_Clicked"/>
 
-        <Button Command="{Binding SaveFileInstanceCommand}"
-          Text="Save using new instance of FileSaver"
-          HorizontalOptions="Center"/>
-    </VerticalStackLayout>
+                <Button Command="{Binding SelectFileCommand}"
+                        Text="SelectFile"
+                        HorizontalOptions="Center"/>-->
+
+                <CollectionView ItemsSource="{Binding FileItems}"  
+                                EmptyView="Nenhum dado">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="20,5,20,0" 
+                                    Padding="10,5" 
+                                    Stroke="Gray" 
+                                    StrokeThickness="1">
+                                <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="20">
+                                    <Image Grid.Column="0" 
+                                           Source="{Binding ImageItem.Source}"
+                                           Aspect="AspectFill"
+                                           HeightRequest="{Binding ImageItem.HeightRequest}"
+                                           WidthRequest="{Binding ImageItem.WidthRequest}"/>
+                                    <Label Grid.Column="1" 
+                                           Text="{Binding FileName}"
+                                           LineBreakMode="TailTruncation"
+                                           HorizontalTextAlignment="Start" 
+                                           VerticalOptions="Center"/>
+
+                                    <Border Grid.Column="2" 
+                                            Stroke="LightGreen"
+                                            HorizontalOptions="EndAndExpand">
+                                        <Label Text="PRONTO"
+                                               TextColor="LightGreen"
+                                               FontSize="9"
+                                               FontAttributes="Bold"
+                                               HorizontalTextAlignment="Center" 
+                                               VerticalOptions="Center"
+                                               Padding="5,0"/>
+                                    </Border>
+                                    <Label Grid.Column="3" 
+                                           Text="{Binding FileSize}" 
+                                           HorizontalTextAlignment="Center" 
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="4"
+                                           Text="X" 
+                                           HorizontalTextAlignment="Center" 
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Border VerticalOptions="EndAndExpand"
+                Margin="20,0" 
+                BackgroundColor="Transparent" 
+                StrokeThickness="0" 
+                HeightRequest="{OnPlatform Default=70, Android=300,iOS=300}"
+                IsVisible="{Binding IsVisibleFooter}">
+            <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" RowSpacing="10">
+                <Image Source="bar.jpg" 
+                       Grid.ColumnSpan="3" 
+                       Grid.RowSpan="3" 
+                       Aspect="AspectFill"
+                       IsVisible="{OnPlatform Default=True,Android=False,iOS=False}"/>
+                <Button Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="{OnPlatform Default=0,Android=3,iOS=3}"
+                        Grid.RowSpan="{OnPlatform WinUI=3}"
+                        Margin="20,0"
+                        Text="➕ Adicionar mais arquivos"
+                        FontSize="14"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        BackgroundColor="White"
+                        HorizontalOptions="{OnPlatform Default=StartAndExpand,Android=Center,iOS=Center}"
+                        HeightRequest="36"
+                        Command="{Binding SelectFileCommand}"/>
+
+                <Grid ColumnDefinitions="70,*" Grid.Column="{OnPlatform Default=1,Android=0,iOS=0}" 
+                       Grid.Row="{OnPlatform Default=0,Android=1,iOS=1}"
+                       Grid.ColumnSpan="{OnPlatform Default=0,Android=3,iOS=3}"
+                       Grid.RowSpan="{OnPlatform WinUI=3}"
+                       ColumnSpacing="20"
+                       HorizontalOptions="Center"
+                       WidthRequest="200">
+
+                    <Button Grid.Column="0"
+                            Text="Para ➡️" 
+                            WidthRequest="100"
+                            HeightRequest="36"
+                            BackgroundColor="Transparent"
+                            FontAttributes="Bold"
+                            FontSize="19">
+                        <FlyoutBase.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="PNG" Command="{Binding FileTypeCommand}" CommandParameter="PNG"/>
+                                <MenuFlyoutItem Text="JPEG" Command="{Binding FileTypeCommand}" CommandParameter="JPEG" />
+                                <MenuFlyoutItem Text="SVG" Command="{Binding FileTypeCommand}" CommandParameter="SVG"/>
+                                <MenuFlyoutItem Text="GIF" Command="{Binding FileTypeCommand}" CommandParameter="GIF"/>
+                            </MenuFlyout>
+                        </FlyoutBase.ContextFlyout>
+                    </Button>
+
+                    <Label Grid.Column="1"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           Text="{Binding FileTypeTitle}" 
+                           TextColor="White"
+                           BackgroundColor="Transparent"
+                           FontAttributes="Bold"
+                           FontSize="19"/>
+                </Grid>
+
+                <Button Grid.Column="{OnPlatform Default=2,Android=0,iOS=0}" 
+                        Grid.Row="{OnPlatform Default=0,Android=2,iOS=2}"
+                        Grid.ColumnSpan="{OnPlatform Default=0,Android=3,iOS=3}"
+                        Grid.RowSpan="{OnPlatform WinUI=3}"
+                        HorizontalOptions="{OnPlatform Default=EndAndExpand,Android=Center,iOS=Center}"
+                        Command="{Binding ConvertFileCommand}"
+                        WidthRequest="{OnPlatform Default=200}"
+                        HeightRequest="{OnPlatform Default=200,Android=100,iOS=100}"
+                        Text="Converter  ➡️"
+                        FontSize="19"
+                        FontAttributes="Bold"/>
+            </Grid>
+        </Border>
+
+        <Grid IsVisible="{Binding IsBusy}">
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center">
+                <ActivityIndicator IsRunning="True"
+                                   Color="Black"
+                                   HorizontalOptions="Center"/>
+                <Label Text="Carregando..."
+                       TextColor="{StaticResource Primary}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+
 </ContentPage>

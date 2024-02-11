@@ -5,14 +5,14 @@ namespace ConvertFile.Services;
 
 public class FileService
 {
-   private  readonly IFileSaver fileSaver;
+    private readonly IFileSaver _fileSaver;
 
     public FileService(IFileSaver fileSaver)
     {
-        this.fileSaver = fileSaver;
+        _fileSaver = fileSaver;
     }
 
-    public async Task SaveFileAsync(string fileName,Stream stream, CancellationToken cancellationToken)
+    public async Task SaveFileAsync(string fileName, Stream stream, CancellationToken cancellationToken)
     {
         var fileSaveResult = await FileSaver.SaveAsync("DCIM", fileName, stream, cancellationToken);
         if (fileSaveResult.IsSuccessful)
@@ -25,11 +25,31 @@ public class FileService
         }
     }
 
-    public async Task FilePickerAsync()
+    public async Task<Stream> FilePickerAsync()
     {
-        var result = await FilePicker.PickAsync(new PickOptions
+        try
         {
 
-        });
+            var result = await FilePicker.PickAsync(new PickOptions
+            {
+                FileTypes = FilePickerFileType.Images,
+                PickerTitle = "Escolha a image"
+
+            });
+
+            if (result is null)
+            {
+                return null;
+            }
+
+            var stream = await result.OpenReadAsync();
+
+            return stream;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null;
+        }
     }
 }

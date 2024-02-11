@@ -1,3 +1,5 @@
+CommunityToolkit.Maui.Core.dll
+CommunityToolkit.Maui.dll
 GoogleGson.dll
 Jsr305Binding.dll
 Microsoft.Maui.Controls.Compatibility.dll
@@ -158,7 +160,3 @@ Microsoft.Maui.aar
 Microsoft.Maui.Essentials.aar
 Xamarin.Google.Crypto.Tink.Android.aar
 Xamarin.Google.ErrorProne.Annotations.aar
-HerpersFile.dll
-HerpersFile.aar
-CommunityToolkit.Maui.Core.dll
-CommunityToolkit.Maui.dll
