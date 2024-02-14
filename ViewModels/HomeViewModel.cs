@@ -4,10 +4,15 @@ using CommunityToolkit.Mvvm.Input;
 using ConvertFile.Models;
 using ConvertFile.Services;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Threading;
+using Image = Microsoft.Maui.Controls.Image;
+
 
 namespace ConvertFile.ViewModels;
+
+
 
 public partial class HomeViewModel : ObservableObject
 {
@@ -54,12 +59,18 @@ public partial class HomeViewModel : ObservableObject
 
         try
         {
-            //Stream = await _fileService.FilePickerAsync();
-          _results = await FilePicker.PickMultipleAsync(new PickOptions
+
+            if (FileTotal == 100)
+            {
+                await Toast.Make($"Maximo 100 arquivos").Show(cancellationToken);
+                return;
+            }
+
+            _results = await FilePicker.PickMultipleAsync(new PickOptions
             {
                 FileTypes = FilePickerFileType.Images,
                 PickerTitle = "Escolha a image",
-          });
+            });
 
 
             if (_results.Count() == 0)
@@ -81,10 +92,10 @@ public partial class HomeViewModel : ObservableObject
 
                 var fileSize = new FileInfo(result.FullPath);
                 var stream = await result.OpenReadAsync();
-                //Stream.Add(stream);
-               
+
+
                 var source = ImageSource.FromStream(() => stream);
-                
+
                 var image = new Image
                 {
                     Source = source,
@@ -94,9 +105,9 @@ public partial class HomeViewModel : ObservableObject
 
                 FileItems.Add(new FileItem
                 {
-                    //ImageItem = image,
                     FileName = result.FileName,
-                    FileSize = fileSize.Length
+                    FileSize = fileSize.Length,
+                    FullPath = result.FullPath
                 });
 
                 FileTotal += 1;
@@ -108,8 +119,6 @@ public partial class HomeViewModel : ObservableObject
         catch (Exception ex)
         {
             await Toast.Make($"Error! tente de novo, {ex.Message}").Show(cancellationToken);
-            Console.WriteLine(ex.Message);
-
         }
         finally
         {
@@ -121,5 +130,60 @@ public partial class HomeViewModel : ObservableObject
     private void FileType(string fileTypeTitle)
     {
         FileTypeTitle = fileTypeTitle;
+    }
+
+    [RelayCommand]
+    private void RemoveFile(FileItem obj)
+    {
+        FileItems.Remove(obj);
+        FileTotal -= 1;
+        FileSize -= obj.FileSize;
+    }
+
+    [RelayCommand]
+    private async void ConvertFile()
+    {
+        ObservableCollection<FileItem> itens = new ObservableCollection<FileItem>();
+        IsBusy = true;
+
+        try
+        {
+            for (int i = 0; i < FileItems.Count; i++)
+            {
+                var bitmap = Bitmap.FromFile(FileItems[i].FullPath);
+                //var pathfull = file.FullPath;
+                //int lastIndexOf = pathfull.LastIndexOf('\\');
+                //string path = string.Empty;
+
+                //if (lastIndexOf != -1)
+                //{
+                //    path = pathfull[..lastIndexOf];
+                //}
+                var path = @"D:\01 - TesteImg";
+
+                FileSize -= FileItems[i].FileSize;
+                FileItems[i].FileName = Path.GetFileNameWithoutExtension(FileItems[i].FileName) + ".png";
+
+
+                string outputFilePath = Path.Combine(path, FileItems[i].FileName);
+                bitmap.Save(outputFilePath, System.Drawing.Imaging.ImageFormat.Png);
+
+                FileItems[i].FileSize = new FileInfo(outputFilePath).Length;
+                FileSize += FileItems[i].FileSize;
+                itens.Add(FileItems[i]);
+                await Task.Delay(100);
+            }
+
+            FileItems.Clear();
+            FileItems = itens;
+        }
+        catch (Exception ex)
+        {
+            await Toast.Make($"Error! tente de novo, {ex.Message}").Show();
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 }

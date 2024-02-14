@@ -29,25 +29,25 @@
     <AppXManifest Include="D:\Projetos GitHub\C#\desktop\ConvertFile\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2024-02-11T07:59:39.340</Modified>
+      <Modified>2024-02-14T20:31:34.746</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Projetos GitHub\C#\desktop\ConvertFile\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2024-02-11T07:59:39.055</Modified>
+      <Modified>2024-02-14T20:27:50.227</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Projetos GitHub\C#\desktop\ConvertFile\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ConvertFile.runtimeconfig.json">
       <PackagePath>ConvertFile.runtimeconfig.json</PackagePath>
-      <Modified>2024-02-11T05:17:44.700</Modified>
+      <Modified>2024-02-14T20:15:55.391</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Projetos GitHub\C#\desktop\ConvertFile\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ConvertFile.dll">
       <PackagePath>ConvertFile.dll</PackagePath>
-      <Modified>2024-02-11T07:59:38.545</Modified>
+      <Modified>2024-02-14T20:31:34.347</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Projetos GitHub\C#\desktop\ConvertFile\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>ConvertFile.exe</PackagePath>
-      <Modified>2024-02-11T07:59:38.545</Modified>
+      <Modified>2024-02-14T20:31:34.353</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Projetos GitHub\C#\desktop\ConvertFile\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
@@ -291,7 +291,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Projetos GitHub\C#\desktop\ConvertFile\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ConvertFile.deps.json">
       <PackagePath>ConvertFile.deps.json</PackagePath>
-      <Modified>2024-02-11T05:17:44.541</Modified>
+      <Modified>2024-02-14T20:24:31.823</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\marco\.nuget\packages\microsoft.windows.sdk.net.ref\10.0.19041.31\lib\net6.0\Microsoft.Windows.SDK.NET.dll">
       <PackagePath>Microsoft.Windows.SDK.NET.dll</PackagePath>

@@ -2,8 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConvertFile.Views.HomePage"
+             xmlns:converters="clr-namespace:ConvertFile.Converters"
              BackgroundColor="#fff"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             x:Name="PaiPage">
+
+    <ContentPage.Resources>
+        <converters:FileSizeConverter x:Key="FileSizeConverter"/>
+    </ContentPage.Resources>
+
     <Grid>
         <Image IsVisible="{OnPlatform WinUI=False,Default=True}" 
                Source="bar.jpg" 
@@ -35,31 +42,29 @@
                 </Border>
 
                 <Border VerticalOptions="EndAndExpand"
-          Margin="20,0" 
-          BackgroundColor="Transparent" 
-          StrokeThickness="0" 
-          HeightRequest="{OnPlatform Default=70, Android=300,iOS=300}"
-          IsVisible="{Binding IsVisibleFooter}">
+                        Margin="20,0" 
+                        BackgroundColor="Transparent" 
+                        StrokeThickness="0" 
+                        HeightRequest="{OnPlatform Default=70, Android=300,iOS=300}"
+                        IsVisible="{Binding IsVisibleFooter}">
                     <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" RowSpacing="10">
                         <Image Source="bar.jpg" 
-                 Grid.ColumnSpan="3" 
-                 Grid.RowSpan="3" 
-                 Aspect="AspectFill"
-                 IsVisible="{OnPlatform Default=True,Android=False,iOS=False}"/>
+                               Grid.ColumnSpan="3" 
+                               Grid.RowSpan="3" 
+                               Aspect="AspectFill"
+                               IsVisible="{OnPlatform Default=True,Android=False,iOS=False}"/>
                         <Button Grid.Column="0"
-                  Grid.Row="0"
-                  Grid.ColumnSpan="{OnPlatform Default=0,Android=3,iOS=3}"
-                  Grid.RowSpan="{OnPlatform WinUI=3}"
-                  Margin="20,0"
-                  Text="{Binding FileTotal,StringFormat='Total de arquivos: {0}'}"
-                  FontSize="14"
-                  TextColor="Black"
-                  FontAttributes="Bold"
-                  BackgroundColor="White"
-                  HorizontalOptions="{OnPlatform Default=StartAndExpand,Android=Center,iOS=Center}"
-                  HeightRequest="36"
-                  Command="{Binding SelectFileCommand}"/>
-
+                                Grid.Row="0"
+                                Grid.ColumnSpan="{OnPlatform Default=0,Android=3,iOS=3}"
+                                Grid.RowSpan="{OnPlatform WinUI=3}"
+                                Margin="20,0"
+                                Text="{Binding FileTotal,StringFormat='Total de arquivos: {0}'}"
+                                FontSize="14"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                BackgroundColor="White"
+                                HorizontalOptions="{OnPlatform Default=StartAndExpand,Android=Center,iOS=Center}"
+                                HeightRequest="36"/>
 
                         <Button Grid.Column="{OnPlatform Default=2,Android=0,iOS=0}" 
                                   Grid.Row="{OnPlatform Default=0,Android=2,iOS=2}"
@@ -69,7 +74,7 @@
                                   Command="{Binding ConvertFileCommand}"
                                   WidthRequest="{OnPlatform Default=200}"
                                   HeightRequest="{OnPlatform Default=200,Android=100,iOS=100}"
-                                  Text="{Binding FileSize}"
+                                  Text="{Binding FileSize,Converter={StaticResource FileSizeConverter}}"
                                   FontSize="19"
                                   FontAttributes="Bold"/>
                     </Grid>
@@ -85,11 +90,11 @@
                         HorizontalOptions="Center"/>-->
 
                 <CollectionView ItemsSource="{Binding FileItems}"  
-                                EmptyView="Nenhum dado">
-
+                                EmptyView="Nenhum dado"
+                                Margin="20">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="20,5,20,0" 
+                            <Border Margin="0" 
                                     Padding="10,5" 
                                     Stroke="Gray" 
                                     StrokeThickness="1">
@@ -117,13 +122,17 @@
                                                Padding="5,0"/>
                                     </Border>
                                     <Label Grid.Column="3" 
-                                           Text="{Binding FileSize}" 
+                                           Text="{Binding FileSize,Converter={StaticResource FileSizeConverter}}" 
                                            HorizontalTextAlignment="Center" 
                                            VerticalOptions="Center"/>
-                                    <Label Grid.Column="4"
-                                           Text="X" 
-                                           HorizontalTextAlignment="Center" 
-                                           VerticalOptions="Center"/>
+                                    <Button Grid.Column="4"
+                                            HorizontalOptions="Center" 
+                                            VerticalOptions="Center"
+                                            Text="X"
+                                            TextColor="Black"
+                                            BackgroundColor="Transparent"
+                                            Command="{Binding BindingContext.RemoveFileCommand,Source={x:Reference PaiPage}}"
+                                            CommandParameter="{Binding .}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
