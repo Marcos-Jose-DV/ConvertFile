@@ -7,7 +7,8 @@
     Shell.FlyoutBehavior="{OnPlatform Flyout, WinUI=Locked  }"
     xmlns:views="clr-namespace:ConvertFile.Views"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
-    Title="ConvertFile">
+    Shell.NavBarIsVisible="False"
+    Shell.FlyoutItemIsVisible="False">
 
     <Shell.FlyoutHeader>
         <Label Margin="{OnPlatform Default='0,0,0,12',
@@ -18,12 +19,12 @@
                                 MacCatalyst='4, 100, 4, 0'}"
            FontSize="24"
            HorizontalTextAlignment="Start"
-           Text="ConvertFile"
+           Text="Menu"
            VerticalTextAlignment="Center" />
 
     </Shell.FlyoutHeader>
 
-    <FlyoutItem Title="PDF"
+    <FlyoutItem Title="IMAGEM"
             Route="WelcomePage"
             Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
         <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
@@ -33,12 +34,12 @@
          Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
         <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
     </FlyoutItem>
-    <FlyoutItem Title="PNG"
+    <FlyoutItem Title="PDF"
          Route="WelcomePage"
          Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
         <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Welcome"
+    <FlyoutItem Title="TXT"
          Route="WelcomePage"
          Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
         <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />

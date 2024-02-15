@@ -2,8 +2,9 @@
 
 public class FileItem
 {
-    public Image ImageItem { get; set; }
+    public Guid IdFile { get; set; }
     public string FileName { get; set; }
     public long FileSize { get; set; }
     public string FullPath { get; set; }
+    public byte[] ConvertedFile { get; set; } 
 }

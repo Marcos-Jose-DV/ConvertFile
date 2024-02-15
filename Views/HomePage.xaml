@@ -46,7 +46,7 @@
                         BackgroundColor="Transparent" 
                         StrokeThickness="0" 
                         HeightRequest="{OnPlatform Default=70, Android=300,iOS=300}"
-                        IsVisible="{Binding IsVisibleFooter}">
+                        IsVisible="{Binding IsVisibleDiplayInfo}">
                     <Grid  ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" RowSpacing="10">
                         <Image Source="bar.jpg" 
                                Grid.ColumnSpan="3" 
@@ -91,26 +91,21 @@
 
                 <CollectionView ItemsSource="{Binding FileItems}"  
                                 EmptyView="Nenhum dado"
-                                Margin="20">
+                                Margin="0,0,0,85">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="0" 
+                            <Border Margin="20,4" 
                                     Padding="10,5" 
                                     Stroke="Gray" 
                                     StrokeThickness="1">
-                                <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="20">
-                                    <Image Grid.Column="0" 
-                                           Source="{Binding ImageItem.Source}"
-                                           Aspect="AspectFill"
-                                           HeightRequest="{Binding ImageItem.HeightRequest}"
-                                           WidthRequest="{Binding ImageItem.WidthRequest}"/>
-                                    <Label Grid.Column="1" 
+                                <Grid ColumnDefinitions="*,Auto,200,Auto" ColumnSpacing="20">
+                                    <Label Grid.Column="0" 
                                            Text="{Binding FileName}"
                                            LineBreakMode="TailTruncation"
                                            HorizontalTextAlignment="Start" 
                                            VerticalOptions="Center"/>
 
-                                    <Border Grid.Column="2" 
+                                    <Border Grid.Column="1" 
                                             Stroke="LightGreen"
                                             HorizontalOptions="EndAndExpand">
                                         <Label Text="PRONTO"
@@ -121,11 +116,11 @@
                                                VerticalOptions="Center"
                                                Padding="5,0"/>
                                     </Border>
-                                    <Label Grid.Column="3" 
+                                    <Label Grid.Column="2" 
                                            Text="{Binding FileSize,Converter={StaticResource FileSizeConverter}}" 
                                            HorizontalTextAlignment="Center" 
                                            VerticalOptions="Center"/>
-                                    <Button Grid.Column="4"
+                                    <Button Grid.Column="3"
                                             HorizontalOptions="Center" 
                                             VerticalOptions="Center"
                                             Text="X"
@@ -185,9 +180,9 @@
                         <FlyoutBase.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Text="PNG" Command="{Binding FileTypeCommand}" CommandParameter="PNG"/>
-                                <MenuFlyoutItem Text="JPEG" Command="{Binding FileTypeCommand}" CommandParameter="JPEG" />
-                                <MenuFlyoutItem Text="SVG" Command="{Binding FileTypeCommand}" CommandParameter="SVG"/>
-                                <MenuFlyoutItem Text="GIF" Command="{Binding FileTypeCommand}" CommandParameter="GIF"/>
+                                <MenuFlyoutItem Text="GIF" Command="{Binding FileTypeCommand}" CommandParameter="GIF" />
+                                <MenuFlyoutItem Text="ICON" Command="{Binding FileTypeCommand}" CommandParameter="ICON"/>
+                                <MenuFlyoutItem Text="JPEG" Command="{Binding FileTypeCommand}" CommandParameter="JPEG"/>
                             </MenuFlyout>
                         </FlyoutBase.ContextFlyout>
                     </Button>
@@ -216,7 +211,24 @@
             </Grid>
         </Border>
 
-        <Grid IsVisible="{Binding IsBusy}">
+        <HorizontalStackLayout VerticalOptions="End"
+                               HorizontalOptions="Center"
+                               Spacing="20"
+                               Margin="10"
+                               IsVisible="{Binding IsVisibleDowloadFile}">
+
+            <Button Text="Cancelar"
+                    FontAttributes="Bold"
+                    WidthRequest="150"
+                    HeightRequest="50"
+                    Command="{Binding CanceledCommand}"/>
+            <Button Text="Baixar"
+                    FontAttributes="Bold"
+                    WidthRequest="150"
+                    HeightRequest="50"
+                    Command="{Binding DowloadCommand}"/>
+        </HorizontalStackLayout>
+        <Grid ZIndex="1" IsVisible="{Binding IsBusy}">
             <VerticalStackLayout HorizontalOptions="Center"
                                  VerticalOptions="Center">
                 <ActivityIndicator IsRunning="True"

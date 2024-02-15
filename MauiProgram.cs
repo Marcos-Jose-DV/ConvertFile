@@ -23,7 +23,8 @@ public static class MauiProgram
 
 
 		builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
-		builder.Services.AddSingleton<HomePage>();
+        builder.Services.AddSingleton<IFolderPicker>(FolderPicker.Default);
+        builder.Services.AddSingleton<HomePage>();
 		builder.Services.AddSingleton<HomeViewModel>();
 		builder.Services.AddSingleton<FileService>();
 
