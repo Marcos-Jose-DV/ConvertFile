@@ -72,17 +72,18 @@ public partial class HomeViewModel : ObservableObject
                 PickerTitle = "Escolha a image",
             }));
 
-
+            IsBusy = true;
+            
             if (_results.Count() == 0)
             {
                 await Toast.Make($"Nenhum arquivo selecionado").Show(cancellationToken);
                 return;
             }
 
-            IsBusy = !IsBusy;
-            IsVisibleHeader = !IsVisibleHeader;
-            IsVisibleDiplayInfo = !IsVisibleDiplayInfo;
-            IsVisibleFooter = !IsVisibleFooter;
+            IsVisibleHeader = false;
+            IsVisibleDiplayInfo = true;
+            IsVisibleFooter = true;
+
             foreach (var result in _results)
             {
                 if (FileTotal == 100)
@@ -186,6 +187,7 @@ public partial class HomeViewModel : ObservableObject
                         fileItem.FileSize = fileItem.ConvertedFile.Length;
                         FileSize += fileItem.FileSize;
 
+                        FileItems[i] = null;
                         FileItems[i] = fileItem;
 
                         await Task.Delay(100);
@@ -220,8 +222,8 @@ public partial class HomeViewModel : ObservableObject
                 string filePath = Path.Combine(folderPickerResult.Folder.Path, fileName);
                 File.WriteAllBytes(filePath, FileItems[i].ConvertedFile);
             }
-            await Toast.Make($"Arquivo salvo com sucesso - {folderPickerResult.Folder.Path}", ToastDuration.Long).Show(cancellationToken);
             Clean();
+            await Toast.Make($"Arquivo salvo com sucesso - {folderPickerResult.Folder.Path}", ToastDuration.Long).Show(cancellationToken);
         }
         else
         {

@@ -38503,11 +38503,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos GitHub\\C#\\desktop\\ConvertFile\\ConvertFile.csproj",
+      "projectUniqueName": "D:\\02 - Projetos GitHub\\C#\\desktop\\ConvertFile\\ConvertFile.csproj",
       "projectName": "ConvertFile",
-      "projectPath": "D:\\Projetos GitHub\\C#\\desktop\\ConvertFile\\ConvertFile.csproj",
+      "projectPath": "D:\\02 - Projetos GitHub\\C#\\desktop\\ConvertFile\\ConvertFile.csproj",
       "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetos GitHub\\C#\\desktop\\ConvertFile\\obj\\",
+      "outputPath": "D:\\02 - Projetos GitHub\\C#\\desktop\\ConvertFile\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [

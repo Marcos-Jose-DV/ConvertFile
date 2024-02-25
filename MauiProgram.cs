@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
+using ConvertFile.Data;
 using ConvertFile.Services;
 using ConvertFile.ViewModels;
 using ConvertFile.Views;
@@ -26,7 +27,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<IFolderPicker>(FolderPicker.Default);
         builder.Services.AddSingleton<HomePage>();
 		builder.Services.AddSingleton<HomeViewModel>();
+		builder.Services.AddSingleton<PDFToPage>();
+		builder.Services.AddSingleton<PDFToViewModel>();
 		builder.Services.AddSingleton<FileService>();
+		builder.Services.AddSingleton<AppDbContext>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

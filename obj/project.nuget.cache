@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bYY1V5UtALKBchDtD0VdR5lbFnVZDpFB85Nm6e78qPQRUl4ENVFXHl3YVE023v4q+q/tp6LimSzbgpKaz1d6VA==",
+  "dgSpecHash": "ZkOF/a7ycymeUYbbnyBaf4iUstoJHhBkFSx+CcvZShHsAbCDc+kntA86nRPTA4c/iVZXL+t3GeOOZwTw5K621w==",
   "success": true,
-  "projectFilePath": "D:\\Projetos GitHub\\C#\\desktop\\ConvertFile\\ConvertFile.csproj",
+  "projectFilePath": "D:\\02 - Projetos GitHub\\C#\\desktop\\ConvertFile\\ConvertFile.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marco\\.nuget\\packages\\communitytoolkit.maui\\7.0.1\\communitytoolkit.maui.7.0.1.nupkg.sha512",
     "C:\\Users\\marco\\.nuget\\packages\\communitytoolkit.maui.core\\7.0.1\\communitytoolkit.maui.core.7.0.1.nupkg.sha512",
